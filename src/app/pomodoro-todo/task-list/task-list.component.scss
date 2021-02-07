@@ -1,0 +1,97 @@
+* {
+  color: #fff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+mat-form-field {
+  border-top: none
+}
+
+.distance {
+  margin-top: -30px;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+.task {
+  min-width: 450px;
+  min-height: 60px;
+  background-color: #252525;
+  border: 2px solid gray;
+  border-radius: 5px;
+}
+
+.single-task-menu {
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.selected-task {
+  border: 2px solid #7b1fa2;
+}
+
+.done {
+  opacity: 0.75;
+  text-decoration: line-through;
+}
+
+.task-name {
+  margin-top: 13px;
+}
+
+.add-task {
+  background-color: rgba($color:  #383838, $alpha: 1.0);
+  min-width: 450px;
+  min-height: 60px;
+  border: 2px dashed gray;
+}
+
+.taskf-container {
+  min-width: 450px;
+  background:rgba($color:  #383838, $alpha: 1);
+  border-radius: 7px;
+}
+
+.pomoCform-container {
+  position: relative;
+  font-size: 16px;
+}
+
+.pomoC-input {
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  position: relative;
+  top: 1px;
+  background-color: transparent;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.pomoC-btn {
+  height: 3rem;
+  width: 3rem;
+  background-color: transparent;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.btn-container {
+  background-color: rgba(255,255,255,.1);
+}
+
+.saveBtn:hover {
+  background-color: rgba($color:  #494949, $alpha: 1.0);
+}
+
+.cancelBtn {
+  background: transparent;
+}

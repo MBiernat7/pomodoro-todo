@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-center mt-4">
+  <div class="d-flex align-items-center flex-column">
+    <ul class="d-flex">
+      <li>
+        <button type="button" [ngClass]="{ 'active' : isActive == 1 }" (click)="activate1()">
+          Pomodoro
+        </button>
+      </li>
+      <li>
+        <button type="button" [ngClass]="{ 'active' : isActive == 2 }" (click)="activate2()">
+          Short Break
+        </button>
+      </li>
+      <li>
+        <button type="button" [ngClass]="{ 'active' : isActive == 3 }" (click)="activate3()">
+          Long Break
+        </button>
+      </li>
+    </ul>
+    <div class="mt-4">
+      <mat-progress-spinner class=" example-margin" [strokeWidth]="5" [diameter]="250" [color]="color" [mode]="mode"
+        [value]="valueSpinner">
+      </mat-progress-spinner>
+      <ng-container [counter]="counter" [interval]="interval" (value)="value = $event" *ngIf="flag === true">
+        <p class="timer">{{((value - 30) / 60) % 60 | number: '2.0-0'}}:{{value % 60 | number: '2.0-0'}}</p>
+      </ng-container>
+      <ng-container *ngIf="flag===false">
+        <p class="timer">{{((counter - 30) / 60) % 60 | number: '2.0-0'}}:{{counter % 60 | number: '2.0-0'}}</p>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="flag === true">
+      <button mat-raised-button color="primary" type="button" class="start-stop" (click)="stopTimer()">
+        STOP
+      </button>
+    </ng-container>
+    <ng-container *ngIf="flag === false">
+      <button [disabled]="isActive === 0 ? true : false" mat-raised-button color="primary" type="button"
+        class="start-stop" (click)="startTimer()">
+        START
+      </button>
+    </ng-container>
+
+
+  </div>
+</div>

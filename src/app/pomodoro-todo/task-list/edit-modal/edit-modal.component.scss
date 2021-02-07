@@ -1,0 +1,51 @@
+* {
+  color: #fff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+mat-form-field {
+  border-top: none
+}
+
+.selected-task {
+  border: 2px solid #7b1fa2;
+}
+
+.pomoCform-container {
+  position: relative;
+  font-size: 16px;
+}
+
+.pomoC-input {
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.pomoC-btn {
+  height: 3rem;
+  width: 3rem;
+  background-color: transparent;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.btn-container {
+  background-color: rgba(255,255,255,.1);
+}
+
+.saveBtn:hover {
+  background-color: rgba($color:  #494949, $alpha: 1.0);
+}
+
+.cancelBtn {
+  background: transparent;
+}
