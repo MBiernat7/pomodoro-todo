@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
+import { Component, DoCheck, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Subscription } from 'rxjs';
@@ -18,19 +18,20 @@ export class TimerDisplayComponent implements OnInit, OnDestroy, DoCheck {
   valueSpinner = 100;
 
   // Active timestamp
-  isActive: number = 1;
+  isActive: number = 0;
 
   //
   subscription: Subscription = new Subscription();
   timestamps: Timestamp[];
   flag: boolean = false;
-  value: any;
+  value: any = this.timerService.timestampSource$.value.timestamp;
 
   // Countdown Timer
   nowTime = new Date().getTime();
   endTime = new Date().getTime();
-  counter = 0;
+  counter = this.timerService.timestampSource$.value.timestamp;
   interval = 1000;
+  @Output() updatePCount = new EventEmitter<any>();
 
   constructor(private timerService: TimerService) { }
 
@@ -56,36 +57,24 @@ export class TimerDisplayComponent implements OnInit, OnDestroy, DoCheck {
   isFinished(value: number) {
     if (this.timerService.timestampSource$.value.timestamp === this.timestamps[0].timestamp) {
       if (value <= 0) {
-        this.activate2();
+        this.isActive = 1;
+        this.activate();
         this.value = this.counter;
+        this.updatePCount.emit(null);
       }
     } else {
       if (value <= 0) {
-        this.activate1();
+        this.isActive = 0;
+        this.activate();
         this.value = this.counter;
       }
     }
   }
 
-  activate1(): void {
+  activate(): void {
     this.flag = false;
-    this.timerService.setTimestamp(this.timestamps[0])
+    this.timerService.setTimestamp(this.timestamps[this.isActive])
     this.counter = (this.endTime + this.timerService.timestampSource$.value.timestamp * 60) - this.nowTime;
-    this.isActive = 1;
-  }
-
-  activate2(): void {
-    this.flag = false;
-    this.timerService.setTimestamp(this.timestamps[1]);
-    this.counter = (this.endTime + this.timerService.timestampSource$.value.timestamp * 60) - this.nowTime;
-    this.isActive = 2;
-  }
-
-  activate3(): void {
-    this.flag = false;
-    this.timerService.setTimestamp(this.timestamps[2]);
-    this.counter = (this.endTime + this.timerService.timestampSource$.value.timestamp * 60) - this.nowTime;
-    this.isActive = 3;
   }
 
   startTimer() {

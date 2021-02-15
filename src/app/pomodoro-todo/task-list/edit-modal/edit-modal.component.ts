@@ -10,7 +10,13 @@ import { Task } from '../../interface/task';
 })
 export class EditModalComponent implements OnInit {
 
-  task: Task = { id: new Date().getTime(), name: '', pCount: 0, pCurrent: 0, done: false };
+  task: Task;
+  taskId = this.data.id;
+  taskName = this.data.name;
+  taskPCount = this.data.pCount;
+  taskPCurrent = this.data.pCurrent;
+  taskInProgress = this.data.inProgress;
+  taskDone = this.data.done;
 
   editForm = new FormGroup({
     editName: new FormControl('', [Validators.minLength(5), Validators.required]),
@@ -21,10 +27,11 @@ export class EditModalComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<EditModalComponent>, @Inject(MAT_DIALOG_DATA) public data: Task) { }
 
   ngOnInit(): void {
+    this.task = { id: this.data.id, name: this.data.name, pCount: this.data.pCount, pCurrent: this.data.pCurrent, inProgress: this.data.inProgress, done: this.data.done };
   }
 
   onCancel(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(this.data);
   }
 
 

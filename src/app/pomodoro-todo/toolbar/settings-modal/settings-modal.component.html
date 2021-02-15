@@ -2,22 +2,23 @@
 <form class="d-flex flex-column" [formGroup]="settingsForm">
   <mat-form-field class="mx-3 mt-3" appearance="fill">
     <mat-label>Enter Pomodoro timestamp</mat-label>
-    <input type="number" matInput formControlName="editPomodoro" [(ngModel)]="data[0].timestamp">
+    <input type="number" matInput formControlName="editPomodoro" [(ngModel)]="this.pomodoro.timestamp">
   </mat-form-field>
 
   <mat-form-field class="mx-3 mt-3" appearance="fill">
     <mat-label>Enter Short Break timestamp</mat-label>
-    <input type="number" matInput formControlName="editShortBreak" [(ngModel)]="data[1].timestamp">
+    <input type="number" matInput formControlName="editShortBreak" [(ngModel)]="this.shortBreak.timestamp">
   </mat-form-field>
 
   <mat-form-field class="mx-3 mt-3" appearance="fill">
     <mat-label>Enter Long Break timestamp</mat-label>
-    <input type="number" matInput formControlName="editLongBreak" [(ngModel)]="data[2].timestamp">
+    <input type="number" matInput formControlName="editLongBreak" [(ngModel)]="this.longBreak.timestamp">
   </mat-form-field>
 
   <div class="btn-container d-flex justify-content-end py-2 mx-3">
     <button mat-flat-button class="cancelBtn" type="button" (click)="onCancel()">Cancel</button>
-    <button mat-raised-button class="saveBtn mx-3" type="submit" [mat-dialog-close]="data"
+    <button mat-raised-button class="saveBtn mx-3" type="submit"
+      [mat-dialog-close]="[this.pomodoro, this.shortBreak, this.longBreak]"
       [disabled]="settingsForm.invalid">Save</button>
   </div>
 

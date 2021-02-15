@@ -2,17 +2,17 @@
   <div class="d-flex align-items-center flex-column">
     <ul class="d-flex">
       <li>
-        <button type="button" [ngClass]="{ 'active' : isActive == 1 }" (click)="activate1()">
+        <button type="button" [ngClass]="{ 'active' : isActive == 0 }" (click)="this.isActive = 0; activate()">
           Pomodoro
         </button>
       </li>
       <li>
-        <button type="button" [ngClass]="{ 'active' : isActive == 2 }" (click)="activate2()">
+        <button type="button" [ngClass]="{ 'active' : isActive == 1 }" (click)="this.isActive = 1; activate()">
           Short Break
         </button>
       </li>
       <li>
-        <button type="button" [ngClass]="{ 'active' : isActive == 3 }" (click)="activate3()">
+        <button type="button" [ngClass]="{ 'active' : isActive == 2 }" (click)="this.isActive = 2; activate()">
           Long Break
         </button>
       </li>
@@ -34,7 +34,7 @@
       </button>
     </ng-container>
     <ng-container *ngIf="flag === false">
-      <button [disabled]="isActive === 0 ? true : false" mat-raised-button color="primary" type="button"
+      <button [disabled]="isActive === 3 ? true : false" mat-raised-button color="primary" type="button"
         class="start-stop" (click)="startTimer()">
         START
       </button>

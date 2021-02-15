@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TimerService } from '../services/timer.service';
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class ToolbarComponent implements OnInit, OnDestroy {
 
   timestamps: Timestamp[];
+  @Output() updateView = new EventEmitter<any>();
 
   subscription: Subscription = new Subscription();
 
@@ -34,7 +35,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   openSettings(): any {
     let dialogRef = this.dialog.open(SettingsModalComponent, { data: this.timestamps, width: '450px', height: '410px' });
 
-    dialogRef.afterClosed().subscribe()
+    dialogRef.afterClosed().subscribe((result: Timestamp[]) => {
+      this.timerService.setTimestamps(result);
+      this.updateView.emit(null);
+    })
   }
 
 }

@@ -1,3 +1,3 @@
-<app-toolbar></app-toolbar>
-<app-timer-display></app-timer-display>
-<app-task-list></app-task-list>
+<app-toolbar (updateView)="timerDisplay.activate()"></app-toolbar>
+<app-timer-display #timerDisplay (updatePCount)="taskList.inProgress()"></app-timer-display>
+<app-task-list #taskList></app-task-list>

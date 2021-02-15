@@ -10,20 +10,30 @@ import { Timestamp } from '../../interface/timestamp';
 })
 export class SettingsModalComponent implements OnInit {
 
+  timestamps: Timestamp[];
+  pomodoro: Timestamp = this.data[0];
+  shortBreak: Timestamp = this.data[1];
+  longBreak: Timestamp = this.data[2];
+
   settingsForm = new FormGroup({
-    editPomodoro: new FormControl('', [Validators.required, Validators.min(1)]),
-    editShortBreak: new FormControl('', [Validators.required, Validators.min(1)]),
-    editLongBreak: new FormControl('', [Validators.required, Validators.min(1)]),
+    editPomodoro: new FormControl('', [Validators.required, Validators.min(1), Validators.max(60)]),
+    editShortBreak: new FormControl('', [Validators.required, Validators.min(1), Validators.max(60)]),
+    editLongBreak: new FormControl('', [Validators.required, Validators.min(1), Validators.max(60)]),
   });
 
   constructor(public dialogRef: MatDialogRef<SettingsModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Timestamp[]) { }
 
   ngOnInit(): void {
+    this.timestamps = [
+      { name: 'pomodoro', timestamp: this.data[0].timestamp },
+      { name: 'shortBreak', timestamp: this.data[1].timestamp },
+      { name: 'longBreak', timestamp: this.data[2].timestamp }
+    ]
   }
 
   onCancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.timestamps);
   }
 
 }

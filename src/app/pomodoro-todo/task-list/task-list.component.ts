@@ -12,7 +12,7 @@ import { EditModalComponent } from './edit-modal/edit-modal.component';
 })
 export class TaskListComponent implements OnInit {
 
-  task: Task = { id: new Date().getTime(), name: '', pCount: 0, pCurrent: 0, done: false };
+  task: Task = { id: new Date().getTime(), name: '', pCount: 0, pCurrent: 0, inProgress: false, done: false };
   tasks: Task[] = [];
 
   // Drag and Drop
@@ -46,20 +46,28 @@ export class TaskListComponent implements OnInit {
 
   addTask(): any {
     if (this.tasks.find(e => e.name === this.task.name)) {
-      this.task = { id: new Date().getTime(), name: '', pCount: 0, pCurrent: 0, done: false };
+      this.task = { id: new Date().getTime(), name: '', pCount: 0, pCurrent: 0, inProgress: false, done: false };
       return alert('Please enter different task name');
     };
     this.tasks.push(this.task);
-    this.task = { id: new Date().getTime(), name: '', pCount: 0, pCurrent: 0, done: false };
+    this.task = { id: new Date().getTime(), name: '', pCount: 0, pCurrent: 0, inProgress: false, done: false };
     this.taskAddition = false;
   }
 
   editTask(task: Task): void {
-    let dialogRef = this.dialog.open(EditModalComponent, { data: { name: task.name, pCount: task.pCount }, width: '450px', height: '350px' });
+    let dialogRef = this.dialog.open(EditModalComponent, { data: task, width: '450px', height: '350px' });
 
     dialogRef.afterClosed().subscribe(result => {
-      task.name = result[0];
-      task.pCount = result[1];
+      task.name = result.name;
+      task.pCount = result.pCount;
+    })
+  }
+
+  inProgress(): any {
+    this.tasks.map(e => {
+      if (e.inProgress === true) {
+        e.pCurrent++;
+      }
     })
   }
 
@@ -76,7 +84,9 @@ export class TaskListComponent implements OnInit {
   }
 
   activate(item: any): any {
+    this.tasks.map(e => e.inProgress = false);
     this.selectedItem = item;
+    item.inProgress = true;
   }
 
   clearAll(): any {
@@ -84,7 +94,7 @@ export class TaskListComponent implements OnInit {
   }
 
   clearFinished(): any {
-    this.tasks = this.tasks.filter(e => { return e.done === false })
+    this.tasks = this.tasks.filter(e => e.done === false)
   }
 
   // DRAG AND DROP

@@ -3,5 +3,6 @@ export interface Task {
   name: string;
   pCount: number;
   pCurrent: number;
+  inProgress: boolean;
   done: boolean;
 }
